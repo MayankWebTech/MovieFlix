@@ -18,10 +18,12 @@ const HeroBanner = () => {
 
   const {data, loading } = UseFetch("/movie/upcoming");
 
-  useEffect(()=>{
-    const bg = url.backdrop + data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path
-    setBackground(bg)
-  },[data]);
+  useEffect(() => {
+    if (data && data.results && data.results.length > 0) {
+      const bg = url?.backdrop + data.results[Math.floor(Math.random() * data.results.length)]?.backdrop_path;
+      setBackground(bg);
+    }
+  }, [data, url]);
 
   const searchQueryHandler = (e) => {
     if ((e.key === "Enter" || e.type === "click") && query.length > 0) {
